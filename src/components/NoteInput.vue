@@ -15,7 +15,7 @@
         @input="resizeHeight"
       >
       </textarea>
-      <button type="submit">Create <!--<i class="icon">✅</i> --></button>
+      <button type="submit">Create</button>
     </form>
   </div>
 </template>
