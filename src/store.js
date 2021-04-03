@@ -17,6 +17,14 @@ const store = {
   delete(id) {
     this.instance = this.instance.filter((n) => n.id !== id);
   },
+  update(id, payload) {
+    this.instance = this.instance.map((n) => {
+      if (n.id === id) {
+        return { ...n, ...payload };
+      }
+      return n;
+    });
+  },
 };
 
 export default store;

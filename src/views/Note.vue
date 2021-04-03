@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <a href="/" class="note-editor__icon">↩</a>
+    <a href="/" class="note-editor__icon" @click="handleSave">↩</a>
     <textarea
       class="note-editor__title"
       rows="1"
@@ -37,8 +37,13 @@ export default {
       e.target.style.height = 'auto';
       e.target.style.height = `${e.target.scrollHeight + 2}px`;
     },
+    handleSave() {
+      const { title, descr } = this;
+      store.update(this.note.id, { title, descr });
+    },
   },
   mounted() {
+    this.$refs.title.focus();
     this.resizeHeight({ target: this.$refs.title });
     this.resizeHeight({ target: this.$refs.descr });
   },
