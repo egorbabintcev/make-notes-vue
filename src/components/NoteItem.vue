@@ -1,6 +1,8 @@
 <template>
   <li class="note-item">
-    <h3 class="note-item__title">{{ note.title }}</h3>
+    <h3 class="note-item__title">
+      <a :href="'/' + note.id">{{ note.title }}</a>
+    </h3>
     <p class="note-item__text">{{ note.descr }}</p>
     <button
       type="button"
@@ -54,6 +56,7 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/sass/utils/functions";
+@import "~@/assets/sass/utils/mixins";
 
 .note-item {
   border: rem(1) solid hsl(0, 0%, 80%);
@@ -66,11 +69,26 @@ export default {
   }
 
   &__title {
+    color: hsl(219, 15%, 15%);
     margin-bottom: rem(14);
     padding-right: rem(88);
     font: {
       size: rem(26);
       weight: 700;
+    }
+
+    a {
+      color: inherit;
+      position: relative;
+      text-decoration: none;
+
+      &::after {
+        background-color: hsl(219, 15%, 15%);
+        bottom: rem(-2);
+        height: rem(2);
+        width: 100%;
+        @include pseudo;
+      }
     }
   }
 
