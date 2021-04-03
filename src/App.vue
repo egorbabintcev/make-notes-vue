@@ -1,13 +1,15 @@
 <template>
   <div class="container">
     <note-input :addNote="addNote"></note-input>
-    <note-list :notes="notes"></note-list>
+    <note-list :notes="notes" v-if="notes.length > 0"></note-list>
+    <note-hint v-else></note-hint>
   </div>
 </template>
 
 <script>
 import NoteInput from '@/components/NoteInput.vue';
 import NoteList from '@/components/NoteList.vue';
+import NoteHint from '@/components/NoteHint.vue';
 import store from '@/store';
 
 export default {
@@ -15,6 +17,7 @@ export default {
   components: {
     NoteInput,
     NoteList,
+    NoteHint,
   },
   data() {
     return {
