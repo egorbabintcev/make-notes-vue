@@ -66,8 +66,8 @@ export default {
   }
 
   &__title {
-    margin-bottom: rem(8);
-    padding-right: rem(68);
+    margin-bottom: rem(14);
+    padding-right: rem(88);
     font: {
       size: rem(26);
       weight: 700;
@@ -87,11 +87,11 @@ export default {
     display: inline-flex;
     font-size: rem(20);
     justify-content: center;
-    height: rem(30);
+    height: rem(40);
     position: absolute;
     top: rem(16);
     right: rem(12);
-    width: rem(30);
+    width: rem(40);
   }
 
   .remove-group {
@@ -102,10 +102,10 @@ export default {
     &__btn {
       align-items: center;
       display: inline-flex;
-      font-size: rem(18);
+      font-size: rem(20);
       justify-content: center;
-      height: rem(30);
-      width: rem(30);
+      height: rem(40);
+      width: rem(40);
 
       &:not(:last-child) {
         margin-right: rem(4);

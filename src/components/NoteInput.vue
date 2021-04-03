@@ -67,14 +67,16 @@ export default {
       border: rem(1) solid hsl(0, 0%, 80%);
       font-size: rem(22);
       margin-bottom: rem(10);
+      overflow-y: hidden;
       padding: rem(10);
       resize: none;
     }
 
     button {
-      background-color: hsl(135, 60%, 50%);
+      border: 0;
+      background-color: hsl(135, 50%, 50%);
       color: hsl(0, 0%, 100%);
-      padding: rem(10) rem(15);
+      padding: rem(16) rem(24);
       font: {
         family: 'Inconsolata', monospace;
         size: rem(20);
