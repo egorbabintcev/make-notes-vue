@@ -74,13 +74,14 @@ export default {
 
     button {
       border: 0;
-      background-color: hsl(135, 50%, 50%);
+      background-color: hsl(153, 47%, 53%);
       color: hsl(0, 0%, 100%);
       padding: rem(16) rem(24);
+      text-shadow: rem(0) rem(0) rem(2) hsla(0, 0%, 0%, 50%);
       font: {
         family: 'Inconsolata', monospace;
-        size: rem(20);
-        weight: 700;
+        size: rem(22);
+        weight: 900;
       }
 
       .icon {
