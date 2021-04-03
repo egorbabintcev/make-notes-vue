@@ -9,7 +9,7 @@ const store = {
     return this.instance;
   },
   create(value) {
-    this.instance = [...this.instance, value];
+    this.instance = [value, ...this.instance];
   },
   delete(id) {
     this.instance = this.instance.filter((n) => n.id !== id);
