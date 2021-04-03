@@ -8,6 +8,9 @@ const store = {
   getAll() {
     return this.instance;
   },
+  getOne(id) {
+    return this.instance.find((n) => n.id === id);
+  },
   create(value) {
     this.instance = [value, ...this.instance];
   },
