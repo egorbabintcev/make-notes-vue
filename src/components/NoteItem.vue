@@ -10,28 +10,36 @@
       v-if="!isRemoveShown"
       @click="toggleRemoveShow"
     >
-      🗑
+      <svg>
+        <use :href="`${sprite}#trash`"></use>
+      </svg>
     </button>
     <div class="remove-group" v-if="isRemoveShown">
       <button
         type="button"
-        class="remove-group__btn"
+        class="note-item__btn"
         @click="toggleRemoveShow"
       >
-        ❌
+        <svg class="red">
+          <use :href="`${sprite}#times`"></use>
+        </svg>
       </button>
       <button
         type="button"
-        class="remove-group__btn"
+        class="note-item__btn"
         @click="handleRemove"
       >
-        ✅
+        <svg class="green">
+          <use :href="`${sprite}#check`"></use>
+        </svg>
       </button>
     </div>
   </li>
 </template>
 
 <script>
+import sprite from '@/assets/svg/solid.svg';
+
 export default {
   name: 'NoteItem',
   props: {
@@ -39,6 +47,7 @@ export default {
   },
   data() {
     return {
+      sprite,
       isRemoveShown: false,
     };
   },
@@ -70,7 +79,7 @@ export default {
 
   &__title {
     color: hsl(219, 15%, 15%);
-    margin-bottom: rem(14);
+    margin-bottom: rem(18);
     padding-right: rem(88);
     font: {
       size: rem(26);
@@ -101,11 +110,12 @@ export default {
   }
 
   &__btn {
-    align-items: center;
-    display: inline-flex;
-    font-size: rem(20);
-    justify-content: center;
+    background-color: transparent;
+    border: rem(1) solid hsl(0, 0%, 20%);
+    border-radius: rem(4);
+    cursor: pointer;
     height: rem(40);
+    padding: 0;
     position: absolute;
     top: rem(16);
     right: rem(12);
@@ -117,17 +127,32 @@ export default {
     top: rem(16);
     right: rem(12);
 
-    &__btn {
-      align-items: center;
-      display: inline-flex;
-      font-size: rem(20);
-      justify-content: center;
-      height: rem(40);
-      width: rem(40);
+    .note-item__btn {
+      position: relative;
+      right: unset;
+      top: unset;
 
       &:not(:last-child) {
         margin-right: rem(4);
       }
+    }
+  }
+
+  svg {
+    fill: hsl(218, 14%, 15%);
+    height: rem(25);
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: rem(25);
+
+    &.green {
+      fill: hsl(153, 47%, 53%);
+    }
+
+    &.red {
+      fill: hsl(0, 47%, 53%);
     }
   }
 }
