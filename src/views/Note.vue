@@ -1,6 +1,19 @@
 <template>
   <div class="container">
-    <a href="/" class="note-editor__icon" @click="handleSave">↩</a>
+    <a href="/" class="note-editor__icon note-editor__icon_left">
+      <svg>
+        <use :href="`${sprite}#reply`"></use>
+      </svg>
+    </a>
+    <a
+      href="/"
+      class="note-editor__icon note-editor__icon_right"
+      @click="handleSave"
+    >
+      <svg>
+        <use :href="`${sprite}#check`"></use>
+      </svg>
+    </a>
     <textarea
       class="note-editor__title"
       rows="1"
@@ -20,6 +33,7 @@
 
 <script>
 import store from '@/store';
+import sprite from '@/assets/svg/solid.svg';
 
 export default {
   name: 'Note',
@@ -27,6 +41,7 @@ export default {
     const note = store.getOne(+this.$route.params.id);
 
     return {
+      sprite,
       note,
       title: String(note.title),
       descr: String(note.descr),
@@ -66,23 +81,48 @@ export default {
   // grid
   display: grid;
   grid-gap: rem(20) 0;
-  grid-auto-rows: repeat(1, auto);
 }
 
 .note-editor {
   &__icon {
     align-items: center;
-    color: hsl(153, 47%, 53%);
+    fill: hsl(153, 47%, 53%);
     display: inline-flex;
     font-size: rem(40);
-    justify-content: flex-start;
+    justify-content: center;
     height: rem(40);
-    left: rem(15);
     line-height: 0.5;
     position: fixed;
     text-decoration: none;
     top: rem(5);
     width: rem(40);
+
+    $desktop_position: calc(100vw / 2 - 480px / 2);
+
+    @media screen and (min-width: 480px) {
+      &_left {
+        left: $desktop_position;
+      }
+
+      &_right {
+        right: $desktop_position;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      &_left {
+        left: rem(15);
+      }
+
+      &_right {
+        right: rem(15);
+      }
+    }
+
+    svg {
+      height: 80%;
+      width: 80%;
+    }
   }
 
   &__title {
