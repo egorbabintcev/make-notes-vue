@@ -4,36 +4,40 @@
       <a :href="'/' + note.id">{{ note.title }}</a>
     </h3>
     <p class="note-item__text">{{ note.descr }}</p>
-    <button
-      type="button"
-      class="note-item__btn"
-      v-if="!isRemoveShown"
-      @click="toggleRemoveShow"
-    >
-      <svg>
-        <use :href="`${sprite}#trash`"></use>
-      </svg>
-    </button>
-    <div class="remove-group" v-if="isRemoveShown">
+    <transition name="fade">
       <button
         type="button"
         class="note-item__btn"
+        v-if="!isRemoveShown"
         @click="toggleRemoveShow"
       >
-        <svg class="red">
-          <use :href="`${sprite}#times`"></use>
+        <svg>
+          <use :href="`${sprite}#trash`"></use>
         </svg>
       </button>
-      <button
-        type="button"
-        class="note-item__btn"
-        @click="handleRemove"
-      >
-        <svg class="green">
-          <use :href="`${sprite}#check`"></use>
-        </svg>
-      </button>
-    </div>
+    </transition>
+    <transition name="fade">
+      <div class="remove-group" v-if="isRemoveShown">
+        <button
+          type="button"
+          class="note-item__btn"
+          @click="toggleRemoveShow"
+        >
+          <svg class="red">
+            <use :href="`${sprite}#times`"></use>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="note-item__btn"
+          @click="handleRemove"
+        >
+          <svg class="green">
+            <use :href="`${sprite}#check`"></use>
+          </svg>
+        </button>
+      </div>
+    </transition>
   </li>
 </template>
 
@@ -66,6 +70,17 @@ export default {
 <style lang="scss">
 @import "~@/assets/sass/utils/functions";
 @import "~@/assets/sass/utils/mixins";
+
+/* transition begin */
+.fade-enter-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+/* transition end */
 
 .note-item {
   border: rem(1) solid hsl(0, 0%, 80%);
