@@ -1,5 +1,5 @@
 <template>
-  <div class="note-hint">
+  <div class="note-hint" v-once>
     <p class="note-hint__title">
       Have not created any note yet?
       <br>

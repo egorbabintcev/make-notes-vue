@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { inject } from 'vue';
 import { ref } from '@vue/reactivity';
 
 export default {
@@ -28,14 +29,15 @@ export default {
   props: {
     addNote: Function,
   },
-  setup(props) {
+  setup() {
     // define title and description
     // handle form submit and note add
     const title = ref('');
     const descr = ref('');
+    const addNote = inject('addNote');
     const handleSubmit = () => {
       if (title.value.length > 0 && descr.value.length > 0) {
-        props.addNote(title.value, descr.value);
+        addNote(title.value, descr.value);
         title.value = '';
         descr.value = '';
       }

@@ -1,12 +1,14 @@
 <template>
   <div class="container">
-    <note-input :addNote="addNote"></note-input>
+    <note-input></note-input>
     <note-list :notes="notes" v-if="notes.length > 0"></note-list>
     <note-hint v-else v-once></note-hint>
   </div>
 </template>
 
 <script>
+import { provide } from 'vue';
+import { ref } from '@vue/reactivity';
 import NoteInput from '@/components/NoteInput.vue';
 import NoteList from '@/components/NoteList.vue';
 import NoteHint from '@/components/NoteHint.vue';
@@ -19,29 +21,26 @@ export default {
     NoteList,
     NoteHint,
   },
-  data() {
-    return {
-      notes: store.getAll(),
-    };
-  },
-  methods: {
-    addNote(title, descr) {
+  setup() {
+    const notes = ref(store.getAll());
+    const addNote = (title, descr) => {
       const newNote = {
-        id: this.notes.length + 1,
+        id: notes.value.length + 1,
         title,
         descr,
       };
       store.create(newNote);
-      this.notes.unshift(newNote);
-    },
-    removeNote(id) {
+      notes.value.unshift(newNote);
+    };
+    const removeNote = (id) => {
       store.delete(id);
-      this.notes = this.notes.filter((n) => n.id !== id);
-    },
-  },
-  provide() {
+      notes.value = notes.value.filter((n) => n.id !== id);
+    };
+    provide('addNote', addNote);
+    provide('removeNote', removeNote);
+
     return {
-      removeNote: this.removeNote,
+      notes,
     };
   },
 };

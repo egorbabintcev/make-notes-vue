@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import { ref } from '@vue/reactivity';
+import { inject } from 'vue';
 import sprite from '@/assets/svg/solid.svg';
 
 export default {
@@ -49,21 +51,24 @@ export default {
   props: {
     note: Object,
   },
-  data() {
+  setup(props) {
+    const isRemoveShown = ref(false);
+    const toggleRemoveShow = () => {
+      isRemoveShown.value = !isRemoveShown.value;
+    };
+
+    const removeNote = inject('removeNote');
+    const handleRemove = () => {
+      removeNote(props.note.id);
+    };
+
     return {
       sprite,
-      isRemoveShown: false,
+      isRemoveShown,
+      toggleRemoveShow,
+      handleRemove,
     };
   },
-  methods: {
-    toggleRemoveShow() {
-      this.isRemoveShown = !this.isRemoveShown;
-    },
-    handleRemove() {
-      this.removeNote(this.note.id);
-    },
-  },
-  inject: ['removeNote'],
 };
 </script>
 
