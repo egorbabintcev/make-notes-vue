@@ -21,30 +21,38 @@
 </template>
 
 <script>
+import { ref } from '@vue/reactivity';
+
 export default {
   name: 'NoteInput',
   props: {
     addNote: Function,
   },
-  data() {
-    return {
-      title: '',
-      descr: '',
-    };
-  },
-  methods: {
-    handleSubmit() {
-      const { title, descr } = this;
-      if (title.length > 0 && descr.length > 0) {
-        this.addNote(title, descr);
-        this.title = '';
-        this.descr = '';
+  setup(props) {
+    // define title and description
+    // handle form submit and note add
+    const title = ref('');
+    const descr = ref('');
+    const handleSubmit = () => {
+      if (title.value.length > 0 && descr.value.length > 0) {
+        props.addNote(title.value, descr.value);
+        title.value = '';
+        descr.value = '';
       }
-    },
-    resizeHeight(e) {
+    };
+
+    // handle textarea height resize
+    const resizeHeight = (e) => {
       e.target.style.height = 'auto';
       e.target.style.height = `${e.target.scrollHeight + 2}px`;
-    },
+    };
+
+    return {
+      title,
+      descr,
+      handleSubmit,
+      resizeHeight,
+    };
   },
 };
 </script>
