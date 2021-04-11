@@ -9,6 +9,7 @@
 <script>
 import { provide } from 'vue';
 import { ref } from '@vue/reactivity';
+import { v4 } from 'uuid';
 import NoteInput from '@/components/NoteInput.vue';
 import NoteList from '@/components/NoteList.vue';
 import NoteHint from '@/components/NoteHint.vue';
@@ -25,7 +26,7 @@ export default {
     const notes = ref(store.getAll());
     const addNote = (title, descr) => {
       const newNote = {
-        id: notes.value.length + 1,
+        id: v4(),
         title,
         descr,
       };

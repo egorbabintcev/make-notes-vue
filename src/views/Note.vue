@@ -19,48 +19,59 @@
       rows="1"
       @input="resizeHeight"
       v-model="title"
-      ref="title"
+      ref="titleTemplateRef"
     ></textarea>
     <textarea
       class="note-editor__descr"
       rows="1"
       @input="resizeHeight"
       v-model="descr"
-      ref="descr"
+      ref="descrTemplateRef"
     ></textarea>
   </div>
 </template>
 
 <script>
+import { onMounted } from 'vue';
+import { ref } from '@vue/reactivity';
+import { useRoute } from 'vue-router';
 import store from '@/store';
 import sprite from '@/assets/svg/solid.svg';
 
 export default {
   name: 'Note',
-  data() {
-    const note = store.getOne(+this.$route.params.id);
+  setup() {
+    const note = store.getOne(useRoute().params.id);
+
+    const title = ref(note.title);
+    const descr = ref(note.descr);
+    const handleSave = () => {
+      store.update(note.id, { title: title.value, descr: descr.value });
+    };
+
+    // textarea resize fn and template refs definition
+    const resizeHeight = (e) => {
+      e.target.style.height = 'auto';
+      e.target.style.height = `${e.target.scrollHeight + 2}px`;
+    };
+    const titleTemplateRef = ref(null);
+    const descrTemplateRef = ref(null);
+
+    onMounted(() => {
+      titleTemplateRef.value.focus();
+      resizeHeight({ target: titleTemplateRef.value });
+      resizeHeight({ target: descrTemplateRef.value });
+    });
 
     return {
       sprite,
-      note,
-      title: String(note.title),
-      descr: String(note.descr),
+      title,
+      descr,
+      handleSave,
+      resizeHeight,
+      titleTemplateRef,
+      descrTemplateRef,
     };
-  },
-  methods: {
-    resizeHeight(e) {
-      e.target.style.height = 'auto';
-      e.target.style.height = `${e.target.scrollHeight + 2}px`;
-    },
-    handleSave() {
-      const { title, descr } = this;
-      store.update(this.note.id, { title, descr });
-    },
-  },
-  mounted() {
-    this.$refs.title.focus();
-    this.resizeHeight({ target: this.$refs.title });
-    this.resizeHeight({ target: this.$refs.descr });
   },
 };
 </script>
