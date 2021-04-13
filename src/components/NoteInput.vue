@@ -23,6 +23,7 @@
 <script>
 import { inject } from 'vue';
 import { ref } from '@vue/reactivity';
+import useResizeHeight from '@/utils/resizeHeight';
 
 export default {
   name: 'NoteInput',
@@ -44,10 +45,7 @@ export default {
     };
 
     // handle textarea height resize
-    const resizeHeight = (e) => {
-      e.target.style.height = 'auto';
-      e.target.style.height = `${e.target.scrollHeight + 2}px`;
-    };
+    const { resizeHeight } = useResizeHeight();
 
     return {
       title,

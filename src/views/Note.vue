@@ -36,6 +36,7 @@ import { onMounted } from 'vue';
 import { ref } from '@vue/reactivity';
 import { useRoute } from 'vue-router';
 import store from '@/store';
+import useResizeHeight from '@/utils/resizeHeight';
 import sprite from '@/assets/svg/solid.svg';
 
 export default {
@@ -50,10 +51,7 @@ export default {
     };
 
     // textarea resize fn and template refs definition
-    const resizeHeight = (e) => {
-      e.target.style.height = 'auto';
-      e.target.style.height = `${e.target.scrollHeight + 2}px`;
-    };
+    const { resizeHeight } = useResizeHeight();
     const titleTemplateRef = ref(null);
     const descrTemplateRef = ref(null);
 
@@ -84,9 +82,9 @@ export default {
   max-width: 480px;
   margin: 0 auto;
   padding: {
-    left: rem(15);
-    right: rem(15);
-    top: rem(60);
+    left: rem(20);
+    right: rem(20);
+    top: rem(70);
   }
 
   // grid
@@ -105,7 +103,7 @@ export default {
     line-height: 0.5;
     position: fixed;
     text-decoration: none;
-    top: rem(5);
+    top: rem(10);
     width: rem(40);
 
     $desktop_position: calc(100vw / 2 - 480px / 2);
